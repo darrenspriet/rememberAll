@@ -26,12 +26,12 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-var error2 = false;
 
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+var formString = '';
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/form', function(req, res) {
@@ -39,18 +39,13 @@ app.get('/form', function(req, res) {
         if (error) {
             res.writeHead(500);
             res.end();
-        }
-        else {
+        }else{
             res.writeHead(200, { 'Content-Type': 'text/html' });
-            if(error2){
-                res.end('<div>Though shalt only use 1-3 characters</div>' + content, 'utf-8');
-                error2 = false;
-            }
-            else{
-                res.end(content, 'utf-8');
-            }
-            
+            res.end('<div>'+ formString +'</div>' + content, 'utf-8'); 
+            formString='';       
         }
+
+            
     });
     
 });
@@ -61,9 +56,10 @@ app.post('/signup', function(req, res) {
     var username = req.body.username;
     var highscore = req.body.highscore;
     User.addUser(username, highscore, function(err, user) {
-        if (err) {
-           error2 = true;
-        }
+        if (err) {       
+            formString = 'Though shalt only use 1-3 characters';
+
+       }
         
         res.redirect('/form');
           
