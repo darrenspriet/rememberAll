@@ -8,7 +8,7 @@ var UserSchema = new db.Schema({
         validate: validate('len', 1, 3)
     }
     , highscore : Number
-})
+});
 var MyUser = db.mongoose.model('User', UserSchema);
 // Exports
 module.exports.addUser = addUser;
@@ -26,3 +26,16 @@ function addUser(username, highscore, callback) {
         }
     });
 }
+
+function getTopHighscore(callback){
+    var instance = new MyUser();
+    instance.find().exec(function(err, result){
+            if(err){
+                callback(err);
+            }
+            else{
+                callback(instance);
+            }
+        });
+}
+//.sort({highscore: 1}).limit(10).toArray()
