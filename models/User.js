@@ -12,6 +12,7 @@ var UserSchema = new db.Schema({
 var MyUser = db.mongoose.model('User', UserSchema);
 // Exports
 module.exports.addUser = addUser;
+module.exports.getTopHighscore = getTopHighscore;
 // Add user to database
 function addUser(username, highscore, callback) {
     var instance = new MyUser();
