@@ -31,7 +31,7 @@ function addUser(username, highscore, callback) {
 }
 
 function getTopHighscore(callback){
-   
+    
     MyUser.find(
         null, 
         null, 
@@ -41,16 +41,15 @@ function getTopHighscore(callback){
                 highscore: -1
             }
         }, 
-        function(err, callback){
-        if(err){
-            callback(err);
-            console.log(err);
-        }
-        else{
-            console.log(callback);
-        }
+        function(err, collection){
+            if(err != null){
+                callback(err);
+                
+                console.log("Failed to find highscores");
+            }
+            else{
+
+                callback(collection);
+            }
     });
 }
-//.sort({highscore: 1}).limit(10).toArray()
-
-getTopHighscore();

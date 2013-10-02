@@ -56,8 +56,16 @@ app.get('/highscore', function(req, res){
             res.end();
         }
         else{  
-            res.writehead(200, {'Content-Type': 'text/html'});
-            res.end(content, 'utf-8');
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            User.getTopHighscore(function(collection, err){
+                if(err != null){
+                    console.log("Hello");
+                }
+                else{
+                    console.log(collection);
+                }
+            });
+            res.end(content + "Hello", 'utf-8');
         }
     });
 });
@@ -68,7 +76,8 @@ app.post('/signup', function(req, res) {
     var username = req.body.username;
     var highscore = req.body.highscore;
     User.addUser(username, highscore, function(err, user) {
-        if (err) {       
+        if (err) {   
+            console.log(err);    
             formString = 'Though shalt only use 1-3 characters';
 
        }
