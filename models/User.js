@@ -20,22 +20,36 @@ function addUser(username, highscore, callback) {
     instance.save(function (err) {
         if (err) {
             callback(err);
+            console.log("Failed to add highscore");
         }
         else {
             callback(null, instance);
+            console.log(instance);
         }
     });
 }
 
 function getTopHighscore(callback){
-    var instance = new MyUser();
-    instance.find().exec(function(err, result){
-            if(err){
-                callback(err);
+   
+    MyUser.find(
+        null, 
+        null, 
+        {
+            limit: 10,
+            sort:{
+                highscore: -1
             }
-            else{
-                callback(instance);
-            }
-        });
+        }, 
+        function(err, callback){
+        if(err){
+            callback(err);
+            console.log(err);
+        }
+        else{
+            console.log(callback);
+        }
+    });
 }
 //.sort({highscore: 1}).limit(10).toArray()
+
+getTopHighscore();

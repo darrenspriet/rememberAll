@@ -52,7 +52,7 @@ app.get('/form', function(req, res) {
 app.get('/highscore', function(req, res){
     fs.readFile('./highscore.html', function(error, content){
         if(error){
-            res.writehead(500);
+            res.writeHead(500);
             res.end();
         }
         else{  
