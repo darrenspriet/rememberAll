@@ -13,16 +13,22 @@
     <link href="css/styles.css" rel="stylesheet">
 </head>
 
-<form action="/signup" method="post">
+<h3> LETS GET BONIFIED!!! </h3>
+
+<form action='/guess' method='post'>
     <div>
-        <label>Username:</label>
-        <input type="text" name="username"/><br/>
+        <input type="text" name="guessInput" placeholder="input your guess here" autocomplete="off" autofocus ></input>
     </div>
-    <div>
-        <label>Highscore:</label>
-        <input type="text" name="highscore"/>
-    </div>
-    <input type="submit" value="Add Highscore"/></div>
+    <button id='guess' name="guess" class="btn btn-primary">Guess</button>
 </form>
 
-<a href='/highscore'>High Score</a>
+<form action='/bonify' method='post'>
+    <input type="submit" value="Restart" class="btn"></input>
+</form>
+
+
+<p>
+    <a href='/'>
+        <button class="btn">Home</button>
+    </a>
+</p>
