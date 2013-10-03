@@ -178,7 +178,6 @@ app.post('/search', function(req, res){
         else{
             searchString='<h4>' + 'The score for: ' + user.username + ' is ' + user.highscore + '</h4>';
         }
-        //conosle.log(user);
         res.redirect('/highscore');
     });
 });
