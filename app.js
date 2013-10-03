@@ -63,9 +63,21 @@ app.get('/highscore', function(req, res){
                 }
                 else{
                     console.log(collection);
+                     var HTML= '<div>HIGHSCORES</div><table>';
+
+
+                    for(var i=0;i<collection.length; i++){
+                        HTML += '<tr><td>'+ collection[i].username +'</td>';
+                        HTML += '<td>'+ collection[i].highscore +'</td></tr>';
+                    }
+                    HTML +='</table>'
+                    console.log(HTML);
+                   //res.end('<div>'+AllScores[0].content , 'utf-8');
+                     res.end(HTML+content, 'utf-8'); 
+
+
                 }
             });
-            res.end(content + "Hello", 'utf-8');
         }
     });
 });
