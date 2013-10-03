@@ -123,3 +123,14 @@ legend {
     margin-top: 0px;
     margin-bottom: 0px;
 }
+
+.center {
+    margin-left: auto;
+    width: 50%;
+    margin-right: auto;
+    text-align: center;
+}
+
+.xin {
+    text-align: left;
+}

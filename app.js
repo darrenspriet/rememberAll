@@ -53,7 +53,7 @@ app.get('/form', function(req, res) {
             res.end();
         }else{
             res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end('<div>'+ formString +'</div>' + content, 'utf-8'); 
+            res.end('<div class="center"><div>'+ formString +'</div></div>' + content, 'utf-8'); 
             formString='';       
         }
 
@@ -74,12 +74,12 @@ app.get('/highscore', function(req, res){
                     console.log("ERRORRRR!!!!");
                 }
                 else{
-                    var HTML= '<div><h3>HIGHSCORES</h3></div><table class="table table-bordered table-striped table-condensed">';
+                    var HTML= '<div class="center"><div><h3>HIGHSCORES</h3></div><table class="table table-bordered table-striped table-condensed">';
                     for(var i=0;i<collection.length; i++){
                         HTML += '<tr><td>'+ collection[i].username +'</td>';
                         HTML += '<td>'+ collection[i].highscore +'</td></tr>';
                     }
-                    HTML +='</table>'
+                    HTML +='</table></div>'
                     res.end(HTML+content + searchString, 'utf-8'); 
                 }
             });
@@ -104,8 +104,8 @@ app.get('/bonify', function(req, res){
         else{
             res.writeHead(200, { 'Content-Type': 'text/html'});
             
-            res.end('<h4>' + currText + '</h4>' 
-                + '<div>Your current score is: ' + score + '</div>'
+            res.end('<div class="center"><h4>' + currText + '</h4>' 
+                + '<div>Your current score is: ' + score + '</div></div>'
                 + content, 'utf-8');
             }
     });
@@ -128,7 +128,7 @@ app.get('/gameOver', function(req, res){
                         res.end();
                     }
                     else{
-                        res.end(content + content2+ '<h3>'+formString+'</h3>' + '<h4>' +  'Your score is: '+ score + '<h4>', 'utf-8');
+                        res.end(content + content2+ '<div class="center"><h3>'+formString+'</h3>' + '<h4>' +  'Your score is: '+ score + '<h4></div>', 'utf-8');
                         formString = '';
                     }
                 });
@@ -176,7 +176,7 @@ app.post('/search', function(req, res){
             searchString='You have no highscores yet!';
         }
         else{
-            searchString='<h4>' + 'The score for: ' + user.username + ' is ' + user.highscore + '</h4>';
+            searchString='<div class="center"><h4>' + 'The score for: ' + user.username + ' is ' + user.highscore + '</h4></div>';
         }
         res.redirect('/highscore');
     });
