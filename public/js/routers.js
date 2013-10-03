@@ -1,6 +1,6 @@
 var Router = Backbone.Router.extend({
             routes:{
-                "index":"index"
+                "index":"index",
             }
  });
  
@@ -11,4 +11,3 @@ var app_router = new Router();
     index.render();
 
 });
- 

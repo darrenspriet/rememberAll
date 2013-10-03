@@ -11,9 +11,12 @@
     , User = require('./models/User.js')
     , fs = require('fs')
     , $ = require('jquery')
-    , _ = require('underscore');
+    , _ = require('underscore')
+    , Backbone = require('backbone');
 
  var app = express();
+
+//conf.ports.server;
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -24,7 +27,7 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/public", express.static(__dirname + '/public'));
 
 
 // development only
@@ -32,7 +35,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 var formString = '';
-app.get('/', routes.index);
+//app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/form', function(req, res) {
     fs.readFile('./form.html', function(error, content) {
@@ -71,8 +74,6 @@ app.get('/highscore', function(req, res){
                         HTML += '<td>'+ collection[i].highscore +'</td></tr>';
                     }
                     HTML +='</table>'
-                    console.log(HTML);
-                   //res.end('<div>'+AllScores[0].content , 'utf-8');
                      res.end(HTML+content, 'utf-8'); 
 
 
@@ -82,6 +83,20 @@ app.get('/highscore', function(req, res){
     });
 });
 
+app.get('/', function(req, res) {
+    fs.readFile('./index.html', function(error, content) {
+        if (error) {
+            res.writeHead(500);
+            res.end();
+        }else{
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(content, 'utf-8'); 
+        }
+
+            
+    });
+    
+});
 
 
 app.post('/signup', function(req, res) {
