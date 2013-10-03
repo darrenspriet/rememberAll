@@ -71,23 +71,16 @@ app.get('/highscore', function(req, res){
             res.writeHead(200, {'Content-Type': 'text/html'});
             User.getTopHighscore(function(err, collection){
                 if(err != null){
-                    console.log("Hello");
+                    console.log("ERRORRRR!!!!");
                 }
                 else{
-                    console.log(collection);
-                     var HTML= '<div><h3>HIGHSCORES</h3></div><table>';
-
-
+                    var HTML= '<div><h3>HIGHSCORES</h3></div><table class="table table-bordered table-striped table-condensed">';
                     for(var i=0;i<collection.length; i++){
                         HTML += '<tr><td>'+ collection[i].username +'</td>';
                         HTML += '<td>'+ collection[i].highscore +'</td></tr>';
                     }
                     HTML +='</table>'
-                    console.log(HTML);
-                   //res.end('<div>'+AllScores[0].content , 'utf-8');
                     res.end(HTML+content + searchString, 'utf-8'); 
-
-
                 }
             });
         }
@@ -98,7 +91,7 @@ function makeid(){
         currText += possible.charAt(Math.floor(Math.random() * possible.length));
         text+=currText;
         console.log(text);
-    }
+}
 var text = '';
 var currText = '';
 var score = 0;
@@ -125,21 +118,33 @@ app.get('/gameOver', function(req, res){
         }
         else{
             res.writeHead(200, { 'Content-Type': 'text/html'});
-            res.end(content+
-                'Your score is: '+ score, 'utf-8');
-
+            if(score <= 0){
+                res.end(content, 'utf-8');
             }
+            else{
+                fs.readFile('./gameover2.html', function(error2, content2){
+                    if(error2){
+                        res.writeHead(500);
+                        res.end();
+                    }
+                    else{
+                        res.end(content + content2+'Your score is: '+ score, 'utf-8');
+                    }
+
+                });
+            }
+        } 
     });
 });
 
+
+
 app.post('/guess', function(req, res){
     var guess = req.body.guessInput;
-
     if(guess != text){
         console.log("Your Score is: " + score);
 
         res.redirect('/gameOver');
-
     }
     else{
         score+=1;
@@ -162,6 +167,7 @@ app.post('/search', function(req, res){
     var username = req.body.username;
     
     User.findOneHighscore(username, function(err, user){
+        
         if(err != null){
             console.log("Database error!");
         }
@@ -183,12 +189,9 @@ app.post('/signup', function(req, res) {
         if (err) {   
             console.log(err);    
             formString = 'Though shalt only use 1-3 characters';
-
         }
-        
         res.redirect('/gameOver');
         score = 0;
-          
     }); 
 });
 

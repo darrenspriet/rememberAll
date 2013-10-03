@@ -58,15 +58,16 @@ function getTopHighscore(callback){
 function findOneHighscore(username,callback){
     MyUser.findOne({
         username: username
-    }, function(err, doc) {
-        
+    },
+    {},
+    {sort: {'highscore': -1 }},
+    function(err, doc) {
         if(err != null){
             console.log("Error!!");
             callback(err, null);
         }
         else{
             callback(null, doc);
-            
         }
     });
 }
