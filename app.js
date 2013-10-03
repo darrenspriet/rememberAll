@@ -104,7 +104,7 @@ app.get('/bonify', function(req, res){
         else{
             res.writeHead(200, { 'Content-Type': 'text/html'});
             
-            res.end('<div>' + currText + '</div>' 
+            res.end('<h4>' + currText + '</h4>' 
                 + '<div>Your current score is: ' + score + '</div>'
                 + content, 'utf-8');
             }
@@ -128,9 +128,9 @@ app.get('/gameOver', function(req, res){
                         res.end();
                     }
                     else{
-                        res.end(content + content2+'Your score is: '+ score, 'utf-8');
+                        res.end(content + content2+ '<h3>'+formString+'</h3>' + '<h4>' +  'Your score is: '+ score + '<h4>', 'utf-8');
+                        formString = '';
                     }
-
                 });
             }
         } 
@@ -167,7 +167,7 @@ app.post('/search', function(req, res){
     var username = req.body.username;
     
     User.findOneHighscore(username, function(err, user){
-        
+
         if(err != null){
             console.log("Database error!");
         }
@@ -176,7 +176,7 @@ app.post('/search', function(req, res){
             searchString='You have no highscores yet!';
         }
         else{
-            searchString='The score for: ' + user.username + ' is ' + user.highscore;
+            searchString='<h4>' + 'The score for: ' + user.username + ' is ' + user.highscore + '</h4>';
         }
         //conosle.log(user);
         res.redirect('/highscore');
@@ -190,8 +190,11 @@ app.post('/signup', function(req, res) {
             console.log(err);    
             formString = 'Though shalt only use 1-3 characters';
         }
+        else{
+            score = 0;
+        }
         res.redirect('/gameOver');
-        score = 0;
+        
     }); 
 });
 
