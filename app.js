@@ -32,6 +32,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 var formString = '';
+var searchString = '';
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/form', function(req, res) {
@@ -63,7 +64,7 @@ app.get('/highscore', function(req, res){
                 }
                 else{
                     console.log(collection);
-                     var HTML= '<div>HIGHSCORES</div><table>';
+                     var HTML= '<div><h3>HIGHSCORES</h3></div><table>';
 
 
                     for(var i=0;i<collection.length; i++){
@@ -73,7 +74,7 @@ app.get('/highscore', function(req, res){
                     HTML +='</table>'
                     console.log(HTML);
                    //res.end('<div>'+AllScores[0].content , 'utf-8');
-                     res.end(HTML+content, 'utf-8'); 
+                    res.end(HTML+content + searchString, 'utf-8'); 
 
 
                 }
@@ -83,7 +84,24 @@ app.get('/highscore', function(req, res){
 });
 
 
-
+app.post('/search', function(req, res){
+    var username = req.body.username;
+    
+    User.findOneHighscore(username, function(err, user){
+        if(err != null){
+            console.log("Database error!");
+        }
+        else if(user == null){
+            console.log("Failed to find user");
+            searchString='You have no highscores yet!';
+        }
+        else{
+            searchString='The score for: ' + user.username + ' is ' + user.highscore;
+        }
+        //conosle.log(user);
+        res.redirect('/highscore');
+    });
+});
 app.post('/signup', function(req, res) {
     var username = req.body.username;
     var highscore = req.body.highscore;
@@ -92,7 +110,7 @@ app.post('/signup', function(req, res) {
             console.log(err);    
             formString = 'Though shalt only use 1-3 characters';
 
-       }
+        }
         
         res.redirect('/form');
           
