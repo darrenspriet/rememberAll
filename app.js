@@ -33,7 +33,18 @@ if ('development' == app.get('env')) {
 }
 var formString = '';
 var searchString = '';
-app.get('/', routes.index);
+app.get('/', function(req, res){
+    fs.readFile('./index.html', function(error, content){
+        if(error){
+            res.writeHead(500);
+            res.end();
+        }
+        else{
+            res.writeHead(200, { 'Content-Type': 'text/html'});
+            res.end(content, 'utf-8');
+        }
+    });
+});
 app.get('/users', user.list);
 app.get('/form', function(req, res) {
     fs.readFile('./form.html', function(error, content) {
@@ -82,6 +93,69 @@ app.get('/highscore', function(req, res){
         }
     });
 });
+function makeid(){
+        var possible = "abcdefghijklmnopqrstuvwxyz";//ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        currText += possible.charAt(Math.floor(Math.random() * possible.length));
+        text+=currText;
+        console.log(text);
+    }
+var text = '';
+var currText = '';
+var score = 0;
+app.get('/bonify', function(req, res){
+    fs.readFile('./bonify.html', function(error, content){
+        if(error){
+            res.writeHead(500);
+            res.end();
+        }
+        else{
+            res.writeHead(200, { 'Content-Type': 'text/html'});
+            
+            res.end('<div>' + currText + '</div>' 
+                + '<div>Your current score is: ' + score + '</div>'
+                + content, 'utf-8');
+            }
+    });
+});
+app.get('/gameOver', function(req, res){
+    fs.readFile('./gameover.html', function(error, content){
+        if(error){
+            res.writeHead(500);
+            res.end();
+        }
+        else{
+            res.writeHead(200, { 'Content-Type': 'text/html'});
+            res.end(content+
+                'Your score is: '+ score, 'utf-8');
+
+            }
+    });
+});
+
+app.post('/guess', function(req, res){
+    var guess = req.body.guessInput;
+
+    if(guess != text){
+        console.log("Your Score is: " + score);
+
+        res.redirect('/gameOver');
+
+    }
+    else{
+        score+=1;
+        currText = '';
+        makeid();
+        res.redirect('/bonify');
+    }
+});
+
+app.post('/bonify', function(req, res){
+    currText = '';
+    text = '';
+    makeid();
+    score = 0;
+    res.redirect('/bonify');
+})
 
 
 app.post('/search', function(req, res){
@@ -104,7 +178,7 @@ app.post('/search', function(req, res){
 });
 app.post('/signup', function(req, res) {
     var username = req.body.username;
-    var highscore = req.body.highscore;
+    var highscore = score;
     User.addUser(username, highscore, function(err, user) {
         if (err) {   
             console.log(err);    
@@ -112,7 +186,8 @@ app.post('/signup', function(req, res) {
 
         }
         
-        res.redirect('/form');
+        res.redirect('/gameOver');
+        score = 0;
           
     }); 
 });
