@@ -57,7 +57,7 @@ app.get('/highscore', function(req, res){
         }
         else{  
             res.writeHead(200, {'Content-Type': 'text/html'});
-            User.getTopHighscore(function(collection, err){
+            User.getTopHighscore(function(err, collection){
                 if(err != null){
                     console.log("Hello");
                 }

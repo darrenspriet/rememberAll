@@ -20,7 +20,7 @@ function addUser(username, highscore, callback) {
     instance.highscore = highscore;
     instance.save(function (err) {
         if (err) {
-            callback(err);
+            callback(err, null);
             console.log("Failed to add highscore");
         }
         else {
@@ -43,13 +43,13 @@ function getTopHighscore(callback){
         }, 
         function(err, collection){
             if(err != null){
-                callback(err);
+                callback(err, null);
                 
                 console.log("Failed to find highscores");
             }
             else{
 
-                callback(collection);
+                callback(null,collection);
             }
     });
 }
