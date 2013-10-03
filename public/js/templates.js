@@ -19,12 +19,14 @@ window.JST['index'] = _.template(
     "</form>"+
 
     "<h4>Extras</h4>"+
+    "<div class='xin'>"+
     "<span class='label'>Athours:</span>"+
     "Darren and Stefan <br/>"+
     "<span class='label'>Languages used:</span>"+
     "Node.js, Express.js, Html5, Javascript, Mongoose, MongoDB <br/>"+
     "<span class='label'>Instructions:</span>"+
     "Click 'Excited to get BONIFIED?' to get started. This is a memory game where you have to remember the letters you already have typed while constantly added one more letter. <br/>"+
+    "</div>"+
     "</div>"
 );
 
