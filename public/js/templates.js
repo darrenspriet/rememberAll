@@ -42,7 +42,7 @@ window.JST['highscore'] = _.template(
 "<label>Search for your highscore:</label>"+
 "<input type='text' id='username' placeholder='enter your username' autocomplete='off' autofocus class='input-block-level'/><br/>"+
 "</div>"+
-"<button value='Search!' class='btn btn-primary' >Search!</button>"+
+"<button id='searchButton' value='Search!' class='btn btn-primary' >Search!</button>"+
 "</form>"+
 "<form class='goto_bonify'>"+
 "<p>"+

@@ -32,7 +32,7 @@ var IndexView = Backbone.View.extend({
 var HighScoreView = Backbone.View.extend({
   el:'body > .container',
   events: {
-    'click .search': 'searchUser',
+    'click #searchButton': 'searchUser',
     'submit .goto_bonify':'startGame'
   },
   render: function() {
@@ -60,6 +60,7 @@ var HighScoreView = Backbone.View.extend({
 });
   },
   searchUser: function(ev){
+    console.log(ev);
     ev.preventDefault();
     var that = this;
     $.ajax( {

@@ -169,9 +169,7 @@ app.post('/bonify', function(req, res){
 
 
 app.post('/search', function(req, res){
-    //var username = req.body.username;
-    console.log(req.body.username);
-    //res.send(req.body.username);
+
     var username = req.body.username;
 
      User.findOneHighscore(username, function(err, collection){
