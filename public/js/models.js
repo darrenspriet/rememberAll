@@ -1,10 +1,10 @@
 
 var User = Backbone.Model.extend({
-        url: '/getHighScores'
+    url: '/getHighScores'
 });
-
 
 
 var SingleUser = Backbone.Model.extend({
-        url: '/search'
+    url: '/search'
 });
+

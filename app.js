@@ -4,15 +4,15 @@
  */
 
  var express = require('express')
-    , routes = require('./routes')
-    , user = require('./routes/user')
-    , http = require('http')
-    , path = require('path')
-    , User = require('./models/User.js')
-    , fs = require('fs')
-    , $ = require('jquery')
-    , _ = require('underscore')
-    , Backbone = require('backbone');
+ , routes = require('./routes')
+ , user = require('./routes/user')
+ , http = require('http')
+ , path = require('path')
+ , User = require('./models/User.js')
+ , fs = require('fs')
+ , $ = require('jquery')
+ , _ = require('underscore')
+ , Backbone = require('backbone');
 
  var app = express();
 
@@ -37,6 +37,16 @@ if ('development' == app.get('env')) {
 var formString = '';
 
 var searchString = '';
+var text = '';
+var currText = '';
+var score = 0;
+var makeid = function(){
+        var possible = "abcdefghijklmnopqrstuvwxyz";//ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        currText += possible.charAt(Math.floor(Math.random() * possible.length));
+        text+=currText;
+        console.log(text);
+};
+
 app.get('/', function(req, res){
     fs.readFile('./index.html', function(error, content){
         if(error){
@@ -53,18 +63,16 @@ app.get('/users', user.list);
 
 app.get('/getHighScores', function(req,res){
 
-     User.getTopHighscore(function(err, collection){
-                if(err != null){
-                    console.log("ERRORRRR!!!!");
-                    res.send(err);
-                }
-                else{
-                    console.log(collection);
-                    res.send(collection);
-
-                }
-            });
-
+    User.getTopHighscore(function(err, collection){
+        if(err != null){
+            console.log("ERRORRRR!!!!");
+            res.send(err);
+        }
+        else{
+            console.log("Collection is gotten");
+            res.send(collection);
+        }
+    });
 });
 
 app.get('/form', function(req, res) {
@@ -78,7 +86,7 @@ app.get('/form', function(req, res) {
             formString='';       
         }
 
-            
+
     });
     
 });
@@ -92,21 +100,22 @@ function makeid(){
 var text = '';
 var currText = '';
 var score = 0;
+                    
 app.get('/bonify', function(req, res){
-    fs.readFile('./bonify.html', function(error, content){
-        if(error){
-            res.writeHead(500);
-            res.end();
-        }
-        else{
-            res.writeHead(200, { 'Content-Type': 'text/html'});
-            
-            res.end('<div class="center"><h4>' + currText + '</h4>' 
-                + '<div>Your current score is: ' + score + '</div></div>'
-                + content, 'utf-8');
+        fs.readFile('./bonify.html', function(error, content){
+            if(error){
+                res.writeHead(500);
+                res.end();
             }
+            else{
+                res.writeHead(200, { 'Content-Type': 'text/html'});
+
+                res.end('<div class="center"><h4>' + currText + '</h4>' 
+                    + '<div>Your current score is: ' + score + '</div></div>'
+                    + content, 'utf-8');
+            }
+        });
     });
-});
 app.get('/gameOver', function(req, res){
     fs.readFile('./gameover.html', function(error, content){
         if(error){
@@ -156,7 +165,7 @@ app.post('/bonify', function(req, res){
     makeid();
     score = 0;
     res.redirect('/bonify');
-})
+});
 
 
 app.post('/search', function(req, res){
@@ -177,6 +186,7 @@ app.post('/search', function(req, res){
                 }
      });
 });
+
 app.post('/signup', function(req, res) {
     var username = req.body.username;
     var highscore = score;
@@ -189,7 +199,7 @@ app.post('/signup', function(req, res) {
             score = 0;
         }
         res.redirect('/gameOver');
-        
+
     }); 
 });
 

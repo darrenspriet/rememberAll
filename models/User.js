@@ -70,7 +70,6 @@ var findOneHighscore = function(username,callback){
                 callback(null,collection);
             }
     });
-
 }
 
 // Exports
