@@ -55,7 +55,7 @@ function getTopHighscore(callback){
     });
 }
 
-function findOneHighscore(username,callback){
+var findOneHighscore = function(username,callback){
     MyUser.findOne({
         username: username
     },

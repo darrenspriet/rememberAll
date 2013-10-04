@@ -50,6 +50,23 @@ app.get('/', function(req, res){
     });
 });
 app.get('/users', user.list);
+
+app.get('/getHighScores', function(req,res){
+
+     User.getTopHighscore(function(err, collection){
+                if(err != null){
+                    console.log("ERRORRRR!!!!");
+                    res.send(err);
+                }
+                else{
+                    console.log(collection);
+                    res.send(collection);
+
+                }
+            });
+
+});
+
 app.get('/form', function(req, res) {
     fs.readFile('./form.html', function(error, content) {
         if (error) {
@@ -142,21 +159,6 @@ app.get('/gameOver', function(req, res){
     });
 });
 
-
-app.get('/', function(req, res) {
-    fs.readFile('./index.html', function(error, content) {
-        if (error) {
-            res.writeHead(500);
-            res.end();
-        }else{
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end(content, 'utf-8'); 
-        }
-
-            
-    });
-    
-});
 
 app.post('/guess', function(req, res){
     var guess = req.body.guessInput;
