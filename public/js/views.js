@@ -1,3 +1,19 @@
+$.fn.serializeObject = function() {
+  var o = {};
+  var a = this.serializeArray();
+  $.each(a, function() {
+    if (o[this.name] !== undefined) {
+      if (!o[this.name].push) {
+        o[this.name] = [o[this.name]];
+      }
+      o[this.name].push(this.value || '');
+    } else {
+      o[this.name] = this.value || '';
+    }
+  });
+  return o;
+};
+
 var IndexView = Backbone.View.extend({
   el:'body > .container',
   events: {
@@ -19,8 +35,19 @@ var HighScoreView = Backbone.View.extend({
     'submit .search': 'searchUser',
     'submit .goto_bonify':'startGame'
   },
-  searchUser: function(){
-
+  searchUser: function(ev){
+    ev.preventDefault();
+    var userDetails = $(ev.currentTarget).serializeObject();
+    var user = new SingleUser();
+    user.save(userDetails, {
+      success: function(user){
+        console.log(userDetails);
+      },
+      error: function(){
+        console.log("FAILEEDDDLD!");
+        console.log(userDetails);
+      }
+    });
   },
   startGame: function(){
 
@@ -30,24 +57,24 @@ var HighScoreView = Backbone.View.extend({
     var that = this;
     user.fetch({
       success: function(response) {
-     var object = response.attributes;
+       var object = response.attributes;
 
-     var highscoreArray = [];
-     for (var element in object) {
-      var array = [];
+       var highscoreArray = [];
+       for (var element in object) {
+        var array = [];
 
-      array.push(object[element].username);
-      array.push(object[element].highscore);
-      highscoreArray.push(array);
-    }
-        that.$el.html(JST['highscore']({"highscoreArray":highscoreArray})).trigger('create');
-        return this;
-      },
-      error: function(){
-        console.log("Something failed here....");
-        that.$el.html(JST['highscore']());
+        array.push(object[element].username);
+        array.push(object[element].highscore);
+        highscoreArray.push(array);
       }
-    });
+      that.$el.html(JST['highscore']({"highscoreArray":highscoreArray})).trigger('create');
+      return this;
+    },
+    error: function(){
+      console.log("Something failed here....");
+      that.$el.html(JST['highscore']());
+    }
+  });
   }
 });
 

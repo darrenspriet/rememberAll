@@ -36,7 +36,6 @@ window.JST['highscore'] = _.template(
          "<% }); %>"+
         "</table></div>"+
     "<div class='center'>"+
-
 "<div class='center'>"+
 "<form class='search'>"+
 "<div>"+
