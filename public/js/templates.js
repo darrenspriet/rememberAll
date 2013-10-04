@@ -41,9 +41,9 @@ window.JST['highscore'] = _.template(
 "<form class='search'>"+
 "<div>"+
 "<label>Search for your highscore:</label>"+
-"<input type='text' name='username' placeholder='enter your username' autocomplete='off' autofocus class='input-block-level'/><br/>"+
+"<input type='text' id='username' placeholder='enter your username' autocomplete='off' autofocus class='input-block-level'/><br/>"+
 "</div>"+
-"<input type='submit' value='Search!' class='btn btn-primary' ></input>"+
+"<button value='Search!' class='btn btn-primary' >Search!</button>"+
 "</form>"+
 "<form class='goto_bonify'>"+
 "<p>"+

@@ -82,32 +82,7 @@ app.get('/form', function(req, res) {
     });
     
 });
-app.get('/highscore', function(req, res){
-    fs.readFile('./highscore.html', function(error, content){
-        if(error){
-            res.writeHead(500);
-            res.end();
-        }
-        else{  
-            res.writeHead(200, {'Content-Type': 'text/html'});
-            User.getTopHighscore(function(err, collection){
-                if(err != null){
-                    console.log("ERRORRRR!!!!");
-                }
-                else{
-                    var HTML= '<div class="center"><div><h3>HIGHSCORES</h3></div><table class="table table-bordered table-striped table-condensed">';
-                    for(var i=0;i<collection.length; i++){
-                        HTML += '<tr><td>'+ collection[i].username +'</td>';
-                        HTML += '<td>'+ collection[i].highscore +'</td></tr>';
-                    }
 
-                    HTML +='</table></div>'
-                    res.end(HTML+content + searchString, 'utf-8'); 
-                }
-            });
-        }
-    });
-});
 function makeid(){
         var possible = "abcdefghijklmnopqrstuvwxyz";//ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         currText += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -185,22 +160,22 @@ app.post('/bonify', function(req, res){
 
 
 app.post('/search', function(req, res){
+    //var username = req.body.username;
+    console.log(req.body.username);
+    //res.send(req.body.username);
     var username = req.body.username;
-    
-    User.findOneHighscore(username, function(err, user){
+
+     User.findOneHighscore(username, function(err, collection){
 
         if(err != null){
-            console.log("Database error!");
-        }
-        else if(user == null){
-            console.log("Failed to find user");
-            searchString='You have no highscores yet!';
-        }
-        else{
-            searchString='<div class="center"><h4>' + 'The score for: ' + user.username + ' is ' + user.highscore + '</h4></div>';
-        }
-        res.redirect('/highscore');
-    });
+                    console.log("ERRORRRR!!!!");
+                    res.send(err);
+                }
+                else{
+                    console.log(collection);
+                    res.send(collection);
+                }
+     });
 });
 app.post('/signup', function(req, res) {
     var username = req.body.username;

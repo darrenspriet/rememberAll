@@ -52,20 +52,25 @@ var getTopHighscore =  function (callback){
 }
 
 var findOneHighscore = function(username,callback){
-    MyUser.findOne({
-        username: username
-    },
-    {},
-    { sort: {'highscore': -1 } },
-    function(err, doc) {
-        if(err != null){
-            console.log("Error!!");
-            callback(err, null);
-        }
-        else{
-            callback(null, doc);
-        }
+     MyUser.find(
+        {username: username}, 
+        null, 
+        {
+            limit: 10,
+            sort:{
+                highscore: -1
+            }
+        }, 
+        function(err, collection){
+            if(err != null){
+                callback(err, null);
+                console.log("Failed to find highscores");
+            }
+            else{
+                callback(null,collection);
+            }
     });
+
 }
 
 // Exports
