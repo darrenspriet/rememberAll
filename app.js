@@ -34,18 +34,7 @@ app.use("/public", express.static(__dirname + '/public'));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-var formString = '';
 
-var searchString = '';
-var text = '';
-var currText = '';
-var score = 0;
-var makeid = function(){
-        var possible = "abcdefghijklmnopqrstuvwxyz";//ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        currText += possible.charAt(Math.floor(Math.random() * possible.length));
-        text+=currText;
-        console.log(text);
-};
 
 app.get('/', function(req, res){
     fs.readFile('./index.html', function(error, content){
@@ -91,59 +80,6 @@ app.get('/form', function(req, res) {
     
 });
 
-function makeid(){
-        var possible = "abcdefghijklmnopqrstuvwxyz";//ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        currText += possible.charAt(Math.floor(Math.random() * possible.length));
-        text+=currText;
-        console.log(text);
-}
-var text = '';
-var currText = '';
-var score = 0;
-                    
-app.get('/bonify', function(req, res){
-        fs.readFile('./bonify.html', function(error, content){
-            if(error){
-                res.writeHead(500);
-                res.end();
-            }
-            else{
-                res.writeHead(200, { 'Content-Type': 'text/html'});
-
-                res.end('<div class="center"><h4>' + currText + '</h4>' 
-                    + '<div>Your current score is: ' + score + '</div></div>'
-                    + content, 'utf-8');
-            }
-        });
-    });
-app.get('/gameOver', function(req, res){
-    fs.readFile('./gameover.html', function(error, content){
-        if(error){
-            res.writeHead(500);
-            res.end();
-        }
-        else{
-            res.writeHead(200, { 'Content-Type': 'text/html'});
-            if(score <= 0){
-                res.end(content, 'utf-8');
-            }
-            else{
-                fs.readFile('./gameover2.html', function(error2, content2){
-                    if(error2){
-                        res.writeHead(500);
-                        res.end();
-                    }
-                    else{
-                        res.end(content + content2+ '<div class="center"><h3>'+formString+'</h3>' + '<h4>' +  'Your score is: '+ score + '<h4></div>', 'utf-8');
-                        formString = '';
-                    }
-                });
-            }
-        } 
-    });
-});
-
-
 app.post('/guess', function(req, res){
     var guess = req.body.guessInput;
     if(guess != text){
@@ -158,15 +94,6 @@ app.post('/guess', function(req, res){
         res.redirect('/bonify');
     }
 });
-
-app.post('/bonify', function(req, res){
-    currText = '';
-    text = '';
-    makeid();
-    score = 0;
-    res.redirect('/bonify');
-});
-
 
 app.post('/search', function(req, res){
 

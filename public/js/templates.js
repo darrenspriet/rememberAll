@@ -9,13 +9,10 @@ window.JST['index'] = _.template(
     "<button class='btn btn-large'>Check out the High Scores</button>"+
     "</a>"+
     "</p>"+
-    "<form class='goto_bonify'>"+
     "<p>"+
-    "<div>"+
-    "<input type='submit' value='Excited to get BONIFIED?' class='btn btn-large'></input>"+
-    "</div>"+
+    "<a href='#/bonify'>"+
+    "<button class='btn btn-large'>Excited to get BONIFIED?</button>"+
     "</p>"+
-    "</form>"+
     "<h4>Extras</h4>"+
     "<div class='xin'>"+
     "<span class='label'>Athours:</span>"+
@@ -55,9 +52,11 @@ window.JST['highscore'] = _.template(
 window.JST['bonify'] = _.template(
 "<div class='center'>"+
 "<h3> LETS GET BONIFIED!!! </h3>"+
+"<p><%= currText %></p>"+
+"<p>Your current score is: <%= score %></p>"+
 "<form class='guessLetter'>"+
 "<div>"+
-"<input type='text' name='guessInput' placeholder='input your guess here' autocomplete='off' autofocus ></input>"+
+"<input type='text' id='guessInput' placeholder='input your guess here' autocomplete='off' autofocus ></input>"+
 "</div>"+
 "<button id='guess' name='guess' class='btn btn-primary'>Guess</button>"+
 "</form>"+
@@ -75,18 +74,17 @@ window.JST['bonify'] = _.template(
 window.JST['gameover'] = _.template(
 "<div class='center'>"+
 "<h3> GAMEOVER :'( </h3>"+
-"<form class='goto_bonify'>"+
 "<p>"+
-"<input type='submit' value='Start a new game?' class='btn'></input>"+
+"<a href='#/bonify'>"+
+"<button class='btn'>Start a new game?</button>"+
+"</a>"+
 "</p>"+
-"</form>"+
 "<p>"+
 "<a href='#/highscore'>"+
 "<button class='btn'>See if ya made it to the High Scores!</button>"+
 "</a>"+
 "</p>"+
-"</div>"+
-"<div class='center'>"+
+"<p>Your current score is: <%= score %></p>"+
 "<form class='addHS'>"+
 "<div>"+
 "<label>Enter one to three letters to be added to the highscores:</label>"+

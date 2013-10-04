@@ -49,15 +49,15 @@ var HighScoreView = Backbone.View.extend({
         array.push(object[element].username);
         array.push(object[element].highscore);
         highscoreArray.push(array);
-      }
+        }
       that.$el.html(JST['highscore']({"highscoreArray":highscoreArray})).trigger('create');
       return this;
-    },
-    error: function(){
+      },
+      error: function(){
       console.log("Something failed here....");
     //  that.$el.html(JST['highscore']()).trigger('create');
-  }
-});
+      }
+    });
   },
   searchUser: function(ev){
     console.log(ev);
@@ -94,33 +94,47 @@ var HighScoreView = Backbone.View.extend({
 var GameoverView = Backbone.View.extend({
   el: 'body > .container',
   events: {
-    'submit .goto_bonify':'startGame',
     'submit .addHS': 'addHS'
-  },
-  startGame: function(){
-
   },
   addHS: function(){
 
   },
   render: function(){
-    this.$el.html(JST['gameover']());
+    this.$el.html(JST['gameover']({score:score})).trigger('create');
+
   }
 });
 
 var BonifyView = Backbone.View.extend({
   el: 'body > .container',
   events:{
-    'submit .guessLetter': 'makeGuess',
+    'click #guess': 'makeGuess',
     'submit .goto_bonify':'startGame'
   },
-  makeGuess: function(){
+  makeGuess: function(ev){
+    ev.preventDefault();
+    var guess = $('#guessInput').val();
+    console.log("Guess is: " + guess);
+    console.log("Text is: " + text);
+    if(guess != text){
+        console.log("Your Score is: " + score);
+        
+       // this.$el.html(JST['gameover']({score: score})).trigger('create');
+       app_router.navigate("#/gameover", true);
+    }
+    else{
+        score+=1;
+        currText = '';
+        makeid();
+        this.$el.html(JST['bonify']({currText: currText, score: score})).trigger('create');
 
-  },
+    }
+   },
   startGame: function(){
-
+    this.render();
   },
   render: function(){
-    this.$el.html(JST['bonify']());
+    newGame();
+    this.$el.html(JST['bonify']({currText: currText, score: score})).trigger('create');
   }
 });
