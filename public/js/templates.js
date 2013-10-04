@@ -29,6 +29,12 @@ window.JST['index'] = _.template(
 );
 
 window.JST['highscore'] = _.template(
+        "<div class='center'><div><h3>HIGHSCORES</h3></div>"+
+        "<table class='table table-bordered table-striped table-condensed'>"+
+        "<% _.each(highscoreArray, function(Array) { %>"+
+        "<tr><td><%=Array[0]%></td><td><%=Array[1]%></td></tr>"+
+         "<% }); %>"+
+        "</table></div>"+
     "<div class='center'>"+
 "<form action='/search' method='post'>"+
     "<div>"+
