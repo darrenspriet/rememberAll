@@ -43,11 +43,9 @@ var getTopHighscore =  function (callback){
         function(err, collection){
             if(err != null){
                 callback(err, null);
-                
                 console.log("Failed to find highscores");
             }
             else{
-
                 callback(null,collection);
             }
     });
@@ -58,7 +56,7 @@ var findOneHighscore = function(username,callback){
         username: username
     },
     {},
-    {sort: {'highscore': -1 }},
+    { sort: {'highscore': -1 } },
     function(err, doc) {
         if(err != null){
             console.log("Error!!");
