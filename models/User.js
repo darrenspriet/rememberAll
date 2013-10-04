@@ -10,12 +10,14 @@ var UserSchema = new db.Schema({
     , highscore : Number
 });
 var MyUser = db.mongoose.model('User', UserSchema);
+
 // Exports
 module.exports.addUser = addUser;
 module.exports.getTopHighscore = getTopHighscore;
 module.exports.findOneHighscore = findOneHighscore;
+
 // Add user to database
-function addUser(username, highscore, callback) {
+var addUser = function(username, highscore, callback) {
     var instance = new MyUser();
     instance.username = username;
     instance.highscore = highscore;
@@ -31,7 +33,7 @@ function addUser(username, highscore, callback) {
     });
 }
 
-function getTopHighscore(callback){
+var getTopHighscore = function(callback){
     
     MyUser.find(
         null, 
