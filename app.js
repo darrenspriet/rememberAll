@@ -114,6 +114,8 @@ app.post('/search', function(req, res){
 
 app.post('/signup', function(req, res) {
     var username = req.body.username;
+    var score = req.score;
+    console.log("Username is: " + username + ", score is: "+score);
     User.addUser(username, score, function(err, user) {
         if (err) {   
             console.log(err);    
