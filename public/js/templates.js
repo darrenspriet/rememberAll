@@ -2,38 +2,38 @@
 window.JST = {};
 
 window.JST['index'] = _.template(
-    "<div class='center'>"+
-    "<h3>Welcome to Bonified</h3>"+
-    "<p>"+
-    "<a href='#/highscore'>"+
-    "<button class='btn btn-large'>Check out the High Scores</button>"+
-    "</a>"+
-    "</p>"+
-    "<p>"+
-    "<a href='#/bonify'>"+
-    "<button class='btn btn-large'>Excited to get BONIFIED?</button>"+
-    "</a>"+
-    "</p>"+
-    "<h4>Extras</h4>"+
-    "<div class='xin'>"+
-    "<span class='label'>Athours:</span>"+
-    "Darren and Stefan <br/>"+
-    "<span class='label'>Languages used:</span>"+
-    "Node.js, Express.js, Html5, Javascript, Mongoose, MongoDB <br/>"+
-    "<span class='label'>Instructions:</span>"+
-    "Click 'Excited to get BONIFIED?' to get started. This is a memory game where you have to remember the letters you already have typed while constantly added one more letter. <br/>"+
-    "</div>"+
-    "</div>"
+"<div class='center'>"+
+"<h3>Welcome to Bonified</h3>"+
+"<p>"+
+"<a href='#/highscore'>"+
+"<button class='btn btn-large'>Check out the High Scores</button>"+
+"</a>"+
+"</p>"+
+"<p>"+
+"<a href='#/bonify'>"+
+"<button class='btn btn-large'>Excited to get BONIFIED?</button>"+
+"</a>"+
+"</p>"+
+"<h4>Extras</h4>"+
+"<div class='xin'>"+
+"<span class='label'>Athours:</span>"+
+"Darren and Stefan <br/>"+
+"<span class='label'>Languages used:</span>"+
+"Node.js, Express.js, Html5, Javascript, Mongoose, MongoDB <br/>"+
+"<span class='label'>Instructions:</span>"+
+"Click 'Excited to get BONIFIED?' to get started. This is a memory game where you have to remember the letters you already have typed while constantly added one more letter. There is no case sensitivity<br/>"+
+"</div>"+
+"</div>"
 );
 
 window.JST['highscore'] = _.template(
-        "<div class='center'><div><h3>HIGHSCORES</h3></div>"+
-        "<table class='table table-bordered table-striped table-condensed'>"+
-        "<% _.each(highscoreArray, function(Array) { %>"+
-        "<tr><td><%=Array[0]%></td><td><%=Array[1]%></td></tr>"+
-         "<% }); %>"+
-        "</table></div>"+
-    "<div class='center'>"+
+"<div class='center'><div><h3>HIGHSCORES</h3></div>"+
+"<table class='table table-bordered table-striped table-condensed'>"+
+"<% _.each(highscoreArray, function(Array) { %>"+
+"<tr><td><%=Array[0]%></td><td><%=Array[1]%></td></tr>"+
+ "<% }); %>"+
+"</table></div>"+
+"<div class='center'>"+
 "<div class='center'>"+
 "<form class='search'>"+
 "<div>"+
@@ -43,10 +43,10 @@ window.JST['highscore'] = _.template(
 "<button id='searchButton' value='Search!' class='btn btn-primary' >Search!</button>"+
 "</form>"+
 "<p>"+
-    "<a href='#/bonify'>"+
-    "<button class='btn'>Start a new game?</button>"+
-    "</a>"+
-    "</p>"+
+"<a href='#/bonify'>"+
+"<button class='btn'>Start a new game?</button>"+
+"</a>"+
+"</p>"+
 "</div>"
 );
 
@@ -70,7 +70,7 @@ window.JST['bonify'] = _.template(
 "</a>"+
 "</p>"+
 "</div>"
-    );
+);
 
 window.JST['gameover'] = _.template(
 "<div class='center'>"+
@@ -102,4 +102,4 @@ window.JST['gameover'] = _.template(
 "</a>"+
 "</p>"+
 "<% } %>"
-    );
+);

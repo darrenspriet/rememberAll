@@ -133,7 +133,6 @@ var BonifyView = Backbone.View.extend({
         currText = '';
         makeid();
         this.$el.html(JST['bonify']({currText: currText, score: score})).trigger('create');
-
     }
    },
   startGame: function(){
