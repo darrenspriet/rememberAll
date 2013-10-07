@@ -12,6 +12,7 @@ window.JST['index'] = _.template(
     "<p>"+
     "<a href='#/bonify'>"+
     "<button class='btn btn-large'>Excited to get BONIFIED?</button>"+
+    "</a>"+
     "</p>"+
     "<h4>Extras</h4>"+
     "<div class='xin'>"+
