@@ -80,20 +80,26 @@ window.JST['gameover'] = _.template(
 "<button class='btn'>Start a new game?</button>"+
 "</a>"+
 "</p>"+
+"<% if (score > 0) { %>"+
 "<p>"+
 "<a href='#/highscore'>"+
 "<button class='btn'>See if ya made it to the High Scores!</button>"+
 "</a>"+
 "</p>"+
-"<% if (score > 0) { %>"+
 "<p>Your current score is: <%= score %></p>"+
 "<form class='addHS'>"+
 "<div>"+
 "<label>Enter one to three letters to be added to the highscores:</label>"+
-"<input type='text' name='username' placeholder='username' autofocus/><br/>"+
+"<input type='text' name='username' placeholder='username' autocomplete='off' autofocus /><br/>"+
 "</div>"+
 "<input type='submit' value='Add Highscore' class='btn btn-primary'/></div>"+
 "</form>"+
 "</div>"+
+"<% } else { %>"+
+"<p>"+
+"<a href='#/highscore'>"+
+"<button class='btn'>Check out the High Scores!</button>"+
+"</a>"+
+"</p>"+
 "<% } %>"
     );
