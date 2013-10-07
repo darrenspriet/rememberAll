@@ -1,8 +1,12 @@
 
+
 window.JST = {};
 
 window.JST['index'] = _.template(
+    "<% var viewportWidth = $(window).width();%>"+
+    "<%if( viewportWidth >500){%>"+
     "<div class='center'>"+
+    "<%}%>"+
     "<h3>Welcome to Bonified</h3>"+
     "<p>"+
     "<a href='#/highscore'>"+
@@ -27,7 +31,11 @@ window.JST['index'] = _.template(
 );
 
 window.JST['highscore'] = _.template(
-        "<div class='center'><div><h3>HIGHSCORES</h3></div>"+
+        "<% var viewportWidth = $(window).width();%>"+
+    "<%if( viewportWidth >500){%>"+
+    "<div class='center'>"+
+    "<%}%>"+
+        "<div><h3>HIGHSCORES</h3></div>"+
         "<table class='table table-bordered table-striped table-condensed'>"+
         "<% _.each(highscoreArray, function(Array) { %>"+
         "<tr><td><%=Array[0]%></td><td><%=Array[1]%></td></tr>"+
@@ -51,7 +59,10 @@ window.JST['highscore'] = _.template(
 );
 
 window.JST['bonify'] = _.template(
-"<div class='center'>"+
+    "<% var viewportWidth = $(window).width();%>"+
+    "<%if( viewportWidth >500){%>"+
+    "<div class='center'>"+
+    "<%}%>"+
 "<h3> LETS GET BONIFIED!!! </h3>"+
 "<p><%= currText %></p>"+
 "<p>Your current score is: <%= score %></p>"+
@@ -61,9 +72,9 @@ window.JST['bonify'] = _.template(
 "</div>"+
 "<button id='guess' name='guess' class='btn btn-primary'>Guess</button>"+
 "</form>"+
-"<form class='goto_bonify'>"+
-"<input type='submit' value='Restart' class='btn'></input>"+
-"</form>"+
+"<p>"+
+"<button value='Restart' id='goto_bonify' class='btn'>Restart</button>"+
+"</p>"+
 "<p>"+
 "<a href='#/'>"+
 "<button class='btn'>Home</button>"+
@@ -73,7 +84,10 @@ window.JST['bonify'] = _.template(
     );
 
 window.JST['gameover'] = _.template(
-"<div class='center'>"+
+    "<% var viewportWidth = $(window).width();%>"+
+    "<%if( viewportWidth >500){%>"+
+    "<div class='center'>"+
+    "<%}%>"+
 "<h3> GAMEOVER :'( </h3>"+
 "<p>"+
 "<a href='#/bonify'>"+

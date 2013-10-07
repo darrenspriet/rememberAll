@@ -1,3 +1,10 @@
+body{
+    text-decoration: none;
+}
+a{
+    text-decoration: none
+}
+
 .brand {
     font-family: 'Arvo';
 }
@@ -17,7 +24,7 @@ a.plain:visited {
     text-decoration: none;
 }
 
-a.plain:hover {
+a:hover {
     color: #333;
     text-decoration: none;
 }

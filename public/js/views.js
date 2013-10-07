@@ -115,7 +115,7 @@ var BonifyView = Backbone.View.extend({
   el: 'body > .container',
   events:{
     'click #guess': 'makeGuess',
-    'submit .goto_bonify':'startGame'
+    'click #goto_bonify':'startGame'
   },
   makeGuess: function(ev){
     ev.preventDefault();

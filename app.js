@@ -27,7 +27,7 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use("/public", express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 
 // development only
@@ -48,6 +48,7 @@ app.get('/', function(req, res){
         }
     });
 });
+
 app.get('/users', user.list);
 
 app.get('/getHighScores', function(req,res){
