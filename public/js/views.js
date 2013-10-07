@@ -28,7 +28,7 @@ var HighScoreView = Backbone.View.extend({
     'click #searchButton': 'searchUser'
   },
   render: function() {
-    var user= new User();
+    var user = new User();
     var that = this;
     user.fetch({
       success: function(response) {
@@ -55,6 +55,7 @@ var HighScoreView = Backbone.View.extend({
     console.log(ev);
     ev.preventDefault();
     var that = this;
+    if($('#username').val() !== ''){
     $.ajax( {
       type: "POST",
       url: "/search",
@@ -76,7 +77,10 @@ var HighScoreView = Backbone.View.extend({
         console.log("error");
       }
     });
-
+    }
+    else{
+      this.render();
+    }
   }
 });
 
@@ -90,16 +94,12 @@ var GameoverView = Backbone.View.extend({
     var userDetails = $(ev.currentTarget).serializeObject();
     var username = userDetails.username;
     var highscore = score;
-    console.log("username: "+ username);
-    console.log("highscore: "+ highscore);
-
     var user = new AddUser();
     var newUserDetails = {"username": username, "highscore": highscore};
     var that = this;
-    console.log(newUserDetails);
     user.save(newUserDetails, {
       success: function(){
-        console.log(newUserDetails);
+        app_router.navigate("#/highscore", true);
       },
       error: function(){
         console.log("Failed to add user");
