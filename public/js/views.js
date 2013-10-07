@@ -16,24 +16,16 @@ $.fn.serializeObject = function() {
 
 var IndexView = Backbone.View.extend({
   el:'body > .container',
-  events: {
-    'submit .goto_bonify':'startGame'
-  },
-  startGame: function(){
-
-  },
   render: function() {
     this.$el.html(JST['index']()).trigger('create');
     return this;
-
   }
 });
 
 var HighScoreView = Backbone.View.extend({
   el:'body > .container',
   events: {
-    'click #searchButton': 'searchUser',
-    'submit .goto_bonify':'startGame'
+    'click #searchButton': 'searchUser'
   },
   render: function() {
     var user= new User();
@@ -85,10 +77,7 @@ var HighScoreView = Backbone.View.extend({
       }
     });
 
-  },
-  startGame: function(){
-
-  },
+  }
 });
 
 var GameoverView = Backbone.View.extend({
@@ -96,12 +85,22 @@ var GameoverView = Backbone.View.extend({
   events: {
     'submit .addHS': 'addHS'
   },
-  addHS: function(){
-
+  addHS: function(ev){
+    ev.preventDefault();
+    var userDetails = $(ev.currentTarget).serializeObject();
+    var user = AddUser();
+    var that = this;
+    user.save(userDetails, {
+      success: function(){
+        console.log(userDetails);
+      },
+      error: function(){
+        console.log("Failed to add user");
+      }
+    });
   },
   render: function(){
     this.$el.html(JST['gameover']({score:score})).trigger('create');
-
   }
 });
 

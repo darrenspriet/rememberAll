@@ -8,3 +8,6 @@ var SingleUser = Backbone.Model.extend({
     url: '/search'
 });
 
+var AddUser = Backbone.Model.extend({
+    url: '/signup'
+});

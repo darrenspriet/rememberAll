@@ -42,11 +42,11 @@ window.JST['highscore'] = _.template(
 "</div>"+
 "<button id='searchButton' value='Search!' class='btn btn-primary' >Search!</button>"+
 "</form>"+
-"<form class='goto_bonify'>"+
 "<p>"+
-"<input type='submit' value='Start a new game?' class='btn'></input>"+
-"</p>"+
-"</form>"+
+    "<a href='#/bonify'>"+
+    "<button class='btn'>Start a new game?</button>"+
+    "</a>"+
+    "</p>"+
 "</div>"
 );
 
@@ -85,6 +85,7 @@ window.JST['gameover'] = _.template(
 "<button class='btn'>See if ya made it to the High Scores!</button>"+
 "</a>"+
 "</p>"+
+"<% if (score === 0) { %>"+
 "<p>Your current score is: <%= score %></p>"+
 "<form class='addHS'>"+
 "<div>"+
@@ -93,5 +94,6 @@ window.JST['gameover'] = _.template(
 "</div>"+
 "<input type='submit' value='Add Highscore' class='btn btn-primary'/></div>"+
 "</form>"+
-"</div>"
+"</div>"+
+"<% } %>"
     );

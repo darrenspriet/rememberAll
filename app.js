@@ -114,17 +114,15 @@ app.post('/search', function(req, res){
 
 app.post('/signup', function(req, res) {
     var username = req.body.username;
-    var highscore = score;
-    User.addUser(username, highscore, function(err, user) {
+    User.addUser(username, score, function(err, user) {
         if (err) {   
             console.log(err);    
-            formString = 'Though shalt only use 1-3 characters';
+            res.send(err);
         }
         else{
-            score = 0;
+            res.send(user);
         }
-        res.redirect('/gameOver');
-
+        
     }); 
 });
 
