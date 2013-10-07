@@ -85,7 +85,7 @@ window.JST['gameover'] = _.template(
 "<button class='btn'>See if ya made it to the High Scores!</button>"+
 "</a>"+
 "</p>"+
-"<% if (score === 0) { %>"+
+"<% if (score > 0) { %>"+
 "<p>Your current score is: <%= score %></p>"+
 "<form class='addHS'>"+
 "<div>"+

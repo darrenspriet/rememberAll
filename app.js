@@ -114,7 +114,9 @@ app.post('/search', function(req, res){
 
 app.post('/signup', function(req, res) {
     var username = req.body.username;
-    User.addUser(username, score, function(err, user) {
+    var highscore = req.body.highscore;
+    console.log(highscore);
+    User.addUser(username, highscore, function(err, user) {
         if (err) {   
             console.log(err);    
             res.send(err);

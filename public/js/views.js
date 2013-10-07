@@ -88,11 +88,18 @@ var GameoverView = Backbone.View.extend({
   addHS: function(ev){
     ev.preventDefault();
     var userDetails = $(ev.currentTarget).serializeObject();
-    var user = AddUser();
+    var username = userDetails.username;
+    var highscore = score;
+    console.log("username: "+ username);
+    console.log("highscore: "+ highscore);
+
+    var user = new AddUser();
+    var newUserDetails = {"username": username, "highscore": highscore};
     var that = this;
-    user.save(userDetails, {
+    console.log(newUserDetails);
+    user.save(newUserDetails, {
       success: function(){
-        console.log(userDetails);
+        console.log(newUserDetails);
       },
       error: function(){
         console.log("Failed to add user");
