@@ -119,9 +119,7 @@ var BonifyView = Backbone.View.extend({
   },
   makeGuess: function(ev){
     ev.preventDefault();
-    var guess = $('#guessInput').val();
-    console.log("Guess is: " + guess);
-    console.log("Text is: " + text);
+    var guess = $('#guessInput').val().toUpperCase();
     if(guess != text){
         console.log("Your Score is: " + score);
         
