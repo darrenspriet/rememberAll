@@ -17,8 +17,9 @@ $.fn.serializeObject = function() {
 var IndexView = Backbone.View.extend({
   el:'body > .container',
   render: function() {
-    this.$el.html(JST['index']()).trigger('create');
-    return this;
+    var source = $("#index_template").html();
+    var template = Handlebars.compile(source);
+    this.$el.html(template).trigger('create');
   }
 });
 
@@ -36,18 +37,17 @@ var HighScoreView = Backbone.View.extend({
 
        var highscoreArray = [];
        for (var element in object) {
-        var array = [];
-
-        array.push(object[element].username);
-        array.push(object[element].highscore);
-        highscoreArray.push(array);
+          var scores;
+          scores = {"username": object[element].username, "highscore": object[element].highscore};
+          highscoreArray.push(scores);
         }
-      that.$el.html(JST['highscore']({"highscoreArray":highscoreArray})).trigger('create');
-      return this;
-      },
+        
+    var source = $("#highscore_template").html();
+    var template = Handlebars.compile(source);
+    that.$el.html(template({"highscoreArray":highscoreArray})).trigger('create');
+  },
       error: function(){
       console.log("Something failed here....");
-    //  that.$el.html(JST['highscore']()).trigger('create');
       }
     });
   },
@@ -62,16 +62,19 @@ var HighScoreView = Backbone.View.extend({
       data: {"username": $("#username").val()},
       success: function(response) {
         var object = response;
-        var highscoreArray = [];
-        for (var element in object) {
-          var array = [];
 
-          array.push(object[element].username);
-          array.push(object[element].highscore);
-          highscoreArray.push(array);
+
+       var highscoreArray = [];
+       for (var element in object) {
+          var scores;
+          scores = {"username": object[element].username, "highscore": object[element].highscore};
+          highscoreArray.push(scores);
         }
-        that.$el.html(JST['highscore']({"highscoreArray":highscoreArray})).trigger('create');
-        return this;
+        
+    var source = $("#highscore_template").html();
+    var template = Handlebars.compile(source);
+    that.$el.html(template({"highscoreArray":highscoreArray})).trigger('create');
+
       },
       error: function(){
         console.log("error");
@@ -107,7 +110,10 @@ var GameoverView = Backbone.View.extend({
     });
   },
   render: function(){
-    this.$el.html(JST['gameover']({score:score})).trigger('create');
+
+    var source = $("#gameover_template").html();
+    var template = Handlebars.compile(source);
+    this.$el.html(template({"score":score})).trigger('create');
   }
 });
 
@@ -122,15 +128,23 @@ var BonifyView = Backbone.View.extend({
     var guess = $('#guessInput').val().toUpperCase();
     if(guess != text){
         console.log("Your Score is: " + score);
-        
-       // this.$el.html(JST['gameover']({score: score})).trigger('create');
-       app_router.navigate("#/gameover", true);
-    }
+        app_router.navigate("#/gameover", true);
+
+        }
     else{
         score+=1;
         currText = '';
         makeid();
-        this.$el.html(JST['bonify']({currText: currText, score: score})).trigger('create');
+        if(score>1){
+        var source = $("#bonify_template").html();
+        var template = Handlebars.compile(source);
+        this.$el.html(template({"currText": currText, "score": score})).trigger('create');
+      }
+        else{
+        var source = $("#bonify_template").html();
+        var template = Handlebars.compile(source);
+        this.$el.html(template({"currText": currText})).trigger('create');
+      }
     }
    },
   startGame: function(){
@@ -138,6 +152,7 @@ var BonifyView = Backbone.View.extend({
   },
   render: function(){
     newGame();
-    this.$el.html(JST['bonify']({currText: currText, score: score})).trigger('create');
-  }
+      var source = $("#bonify_template").html();
+      var template = Handlebars.compile(source);
+      this.$el.html(template({"currText": currText, "score": score})).trigger('create');  }
 });

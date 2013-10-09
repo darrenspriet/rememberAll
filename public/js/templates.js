@@ -1,6 +1,5 @@
-
-
 window.JST = {};
+
 
 window.JST['index'] = _.template(
     "<% var viewportWidth = $(window).width();%>"+

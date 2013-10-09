@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Le styles -->
+
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css">
+  <link href="css/styles.css" rel="stylesheet">
+  <script src="lib/jquery-1.10.2.js"></script>
+
+
+</head>
+<script type="text/javascript">
+
+  $(document).bind("mobileinit", function(){
+    $.mobile.ajaxEnabled = false;
+    $.mobile.linkBindingEnabled = false; 
+    $.mobile.hashListeningEnabled = false; 
+    $.mobile.pushStateEnabled = false; 
+    $.mobile.changePage.defaults.changeHash = false;         
+  });
+
+</script>
+
+<script src="lib/jquery.mobile-1.3.1.min.js"></script>
+<body>
+
+  <script id="index_template" type="text/x-handlebars-template">
+    <div class='center'>
+      <h3>Welcome to Bonified</h3>
+      <p>
+        <a href='#/highscore'>
+          <button class='btn btn-large'>Check out the High Scores</button>
+        </a>
+      </p>
+      <p>
+        <a href='#/bonify'>
+          <button class='btn btn-large'>Excited to get BONIFIED?</button>
+        </a>
+      </p>
+      <h4>Extras</h4>
+      <div class='xin'>
+        <span class='label'>Authors:</span>
+        Darren and Stefan <br/>
+        <span class='label'>Languages used:</span>
+        Node.js, Express.js, Html5, Javascript, Mongoose, MongoDB <br/>
+        <span class='label'>Instructions:</span>
+        Click 'Excited to get BONIFIED?' to get started. This is a memory game where you have to remember the letters you already have typed while constantly added one more letter. <br/>    </div>
+      </div>
+    </script>
+
+
+    <script id="highscore_template" type="text/x-handlebars-template">
+      <div class='center'>
+        <div><h3>HIGHSCORES</h3></div>
+
+        <div class='center'>
+          <h3>HIGHSCORES</h3>
+          <form class='search'>
+            <div>
+              <label>Search for your highscore:</label>
+              <input type='text' id='username' placeholder='enter your username' autocomplete='off' autofocus class='input-block-level'/><br/>
+            </div>
+            <button id='searchButton' value='Search!' class='btn btn-primary' >Search!</button>
+          </form>
+          <a href='#/bonify'>
+            <button class='btn'>New game?</button>
+          </a>
+          <table class='table table-bordered table-striped table-condensed'>
+            {{#each highscoreArray}}
+            <tr><td>{{this.username}}</td><td>{{this.highscore}}</td></tr>
+            {{/each}}
+          </table>
+        </div>
+      </script>
+
+        <script id="bonify_template" type="text/x-handlebars-template">
+          <div class='center'>
+            <h3> LETS GET BONIFIED!!! </h3>
+            <p>{{currText}}</p>
+            <p>Your current score is: {{score}}</p>
+            <form class='guessLetter'>
+              <div>
+                <input type='text' id='guessInput' placeholder='input your guess here' autocomplete='off' autofocus autocorrect='off'></input>
+              </div>
+              <button id='guess' name='guess' class='btn btn-primary'>Guess</button>
+            </form>
+            <p>
+              <button value='Restart' id='goto_bonify' class='btn'>Restart</button>
+            </p>
+            <p>
+              <a href='#/'>
+                <button class='btn'>Home</button>
+              </a>
+            </p>
+          </div>
+        </script>
+
+
+        <script id="gameover_template" type="text/x-handlebars-template">
+          <h3> GAMEOVER :( </h3>
+            <p>
+              <a href='#/bonify'>
+                <button class='btn'>Start a new game?</button>
+              </a>
+            </p>
+             {{#if score}}
+            <p>
+              <a href='#/highscore'>
+                <button class='btn'>See if ya made it to the High Scores!</button>
+              </a>
+            </p>
+            <p>Your current score is: {{score}}</p>
+            <form class='addHS'>
+              <div>
+                <label>Enter one to three letters to be added to the highscores:</label>
+                <input type='text' name='username' placeholder='username' autocomplete='off' autofocus /><br/>
+              </div>
+              <input type='submit' value='Add Highscore' class='btn btn-primary'/></div>
+            </form>
+          </div>
+          {{else}}
+          <p>
+            <a href='#/highscore'>
+              <button class='btn'>Check out the High Scores!</button>
+            </a>
+          </p>
+          {{/if}}
+        </script>
+
+
+
+        <div class="container">
+
+        </div>  
+
+
+
+        <script src="lib/underscore.js"></script>
+        <script src="lib/backbone.js"></script>
+        <script src="lib/handlebars_1.0.js"></script>
+
+
+        <script src="js/models.js"></script>
+        <script src="js/views.js"></script>  
+        <script src="js/routers.js"></script>
+        <script src="js/controller.js"></script>
+
+        <script>
+
+
+          Backbone.history.start();
+        </script>
+
+
+      </body>
+      </html>

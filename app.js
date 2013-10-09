@@ -12,7 +12,8 @@
  , fs = require('fs')
  , $ = require('jquery')
  , _ = require('underscore')
- , Backbone = require('backbone');
+ , Backbone = require('backbone')
+ , exphbs = require('express3-handlebars');
 
  var app = express();
 
@@ -21,7 +22,9 @@
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+//app.set('view engine', 'jade');
+app.engine('handlebars', exphbs({defaultLayout : 'main'}));
+app.set('view engine', 'handlebars');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -29,20 +32,23 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
-
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-
 app.get('/', function(req, res){
-    fs.readFile('./index.html', function(error, content){
+    console.log(req.theScores);
+
+    fs.readFile('./public/index.html', function(error, content){
+
+
         if(error){
             res.writeHead(500);
             res.end();
         }
         else{
+
             res.writeHead(200, { 'Content-Type': 'text/html'});
             res.end(content, 'utf-8');
         }
@@ -81,21 +87,6 @@ app.get('/form', function(req, res) {
     
 });
 
-app.post('/guess', function(req, res){
-    var guess = req.body.guessInput;
-    if(guess != text){
-        console.log("Your Score is: " + score);
-
-        res.redirect('/gameOver');
-    }
-    else{
-        score+=1;
-        currText = '';
-        makeid();
-        res.redirect('/bonify');
-    }
-});
-
 app.post('/search', function(req, res){
 
     var username = req.body.username;
@@ -118,7 +109,7 @@ app.post('/signup', function(req, res) {
     var highscore = req.body.highscore;
     console.log(highscore);
     User.addUser(username, highscore, function(err, user) {
-        if (err) {   
+        if (err!=null) {   
             console.log(err);    
             res.send(err);
         }
